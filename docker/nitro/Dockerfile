@@ -1,4 +1,4 @@
-FROM golang:1.21-bullseye AS builder
+FROM golang:1.24-bookworm AS builder
 
 # Install Node.js v18.x
 RUN apt-get update && apt-get install -y curl
@@ -21,7 +21,7 @@ RUN yarn workspace nitro-gui build
 RUN go build -v -o nitro -tags embed_ui .
 
 # Reduce image size
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 RUN apt-get update
 RUN apt-get install -y ca-certificates
 RUN rm -rf /var/lib/apt/lists/*
